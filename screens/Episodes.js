@@ -2,14 +2,10 @@ import React from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const Episodes = () => {
   const navigation = useNavigation();
-
-  const handleSeeAll = (category) => {
-    console.log(`${category} - See All Pressed`);
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -69,7 +65,7 @@ const Episodes = () => {
               })}
             >
               <Image source={require('../assets/image/podcast.jpg')} style={styles.episodeImage} />
-              <Text style={styles.episodeTitle}>A Touch More with Sue Bird & Megan Rapinoe</Text>
+              <Text style={styles.episodeTitle}>Podcast Episode</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>

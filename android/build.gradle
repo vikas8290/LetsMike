@@ -11,6 +11,14 @@ buildscript {
         google()
         mavenCentral()
     }
+    configurations.all {
+        resolutionStrategy {
+            force 'com.google.android.exoplayer:exoplayer-core:2.18.1'
+            force 'com.google.android.exoplayer:exoplayer-ui:2.18.1'
+            force 'com.google.android.exoplayer:exoplayer-hls:2.18.1'
+            force 'com.google.android.exoplayer:exoplayer-dash:2.18.1'
+        }
+    }
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
