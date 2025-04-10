@@ -120,20 +120,20 @@ const Home = () => {
               renderItem={({ item }) => (
                 <TouchableOpacity style={styles.episodeItem} onPress={handleEpisodePress}>
                   <Image source={item.image} style={styles.episodeThumb} />
-                  <Text style={styles.episodeTitle}>{item.title}</Text>
-                  <Text style={styles.episodePodcast}>{item.podcast}</Text>
+                  <View>
+                    <Text style={styles.episodeTitle}>{item.title}</Text>
+                    <Text style={styles.episodePodcast}>{item.podcast}</Text>
+                  </View>
                 </TouchableOpacity>
               )}
             />
           </View>
 
-
-
           {/* Categories Section */}
           <View style={styles.categories}>
             {[{ icon: 'podcast', text: 'Live Radio', color: '#007bff' },
             { icon: 'newspaper-o', text: 'News', color: '#dc3545' },
-            { icon: 'rss', text: 'Podcast', color: '#28a745'}
+            { icon: 'rss', text: 'Podcast', color: '#28a745' }
             ].map((item, index) => (
               <TouchableOpacity key={index} style={styles.categoryItem} onPress={() => console.log(`${item.text} Pressed`)}>
                 <FontAwesome name={item.icon} style={styles.categoryIcon} />
@@ -181,11 +181,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#9f2ce3',
-    padding: 15,
+    padding: 10,
   },
   logo: {
-    width: width * 0.4,
-    height: 50,
+    width: width * 0.5,
+    height: 70,
     resizeMode: 'contain',
   },
   joinButton: {
@@ -219,20 +219,26 @@ const styles = StyleSheet.create({
   },
   episodeScrollSection: {
     backgroundColor: '#fff',
-    paddingVertical: 10,
+    paddingVertical: 15,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
   },
   episodeItem: {
-    width: width * 0.5,
-    marginHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: width * 0.48,
   },
   episodeThumb: {
-    width: '100%',
-    height: height * 0.2,
+    width: width * 0.14,
+    height: height * 0.06,
     borderRadius: 10,
+    marginRight: 10,
   },
   episodePodcast: {
-    fontSize: 12,
-    color: 'gray',
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#3B006B',
   },
   categories: {
     flexDirection: 'row',
@@ -245,23 +251,23 @@ const styles = StyleSheet.create({
   categoryItem: {
     alignItems: 'center',
     margin: 10,
-    width: width / 7,
+    width: width / 4,
   },
   categoryIcon: {
-    height: 50,
-    width: 50,
-    fontSize: 26,
+    height: 100,
+    width: 100,
+    fontSize: 58,
     backgroundColor: '#9f2ce3',
     color: 'white',
-    padding: 10,
+    padding: 18,
     borderRadius: 50,
     textAlign: 'center',
   },
   categoryText: {
     color: '#3B006B',
     fontWeight: 'bold',
-    fontSize: 10,
-    marginTop: 5,
+    fontSize: 16,
+    marginTop: 8,
   },
   bannerAd: {
     width: '100%',
