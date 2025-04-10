@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, Modal, TextInput, KeyboardAvoidingView, Platform, StatusBar, useColorScheme } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, Modal, TextInput, KeyboardAvoidingView, Platform, StatusBar, useColorScheme, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -22,6 +22,26 @@ const Home = () => {
   const handleJoinNowPress = () => navigation.navigate('Episodes');
   const handleBannerClick = () => navigation.navigate('AdDetails');
   const handleEpisodePress = () => navigation.navigate('EpisodeDetails');
+
+  const banners = [
+    require('../assets/image/banner-1.jpg'),
+    require('../assets/image/banner-2.jpg'),
+    require('../assets/image/banner-3.jpg'),
+  ];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef();
+
+  const onScroll = (event) => {
+    const slide = Math.ceil(event.nativeEvent.contentOffset.x / width);
+    if (slide !== activeIndex) setActiveIndex(slide);
+  };
+
+  const episodes = [
+    { id: '1', title: 'Motivational Talk', podcast: 'Red FM 93.5', image: require('../assets/image/podcast.jpg') },
+    { id: '2', title: 'Mindfulness Hour', podcast: 'Radio One', image: require('../assets/image/podcast.jpg') },
+    { id: '3', title: 'The Daily Wrap', podcast: 'FM Beats', image: require('../assets/image/podcast.jpg') },
+  ];
 
   return (
     <KeyboardAvoidingView
@@ -53,7 +73,7 @@ const Home = () => {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.videoContainer}>
+          {/* <View style={styles.videoContainer}>
             <Video
               source={require('../assets/image/video-2.mp4')}
               style={styles.video}
@@ -62,12 +82,59 @@ const Home = () => {
               repeat
               controls={false}
             />
+          </View> */}
+
+          <View style={styles.sliderContainer}>
+            <ScrollView
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={onScroll}
+              ref={scrollRef}
+              scrollEventThrottle={16}
+            >
+              {banners.map((banner, index) => (
+                <Image key={index} source={banner} style={styles.bannerSlide} />
+              ))}
+            </ScrollView>
+            <View style={styles.dotsContainer}>
+              {banners.map((_, index) => (
+                <View
+                  key={index}
+                  style={[
+                    styles.dot,
+                    { backgroundColor: index === activeIndex ? '#9f2ce3' : '#ccc' },
+                  ]}
+                />
+              ))}
+            </View>
           </View>
+
+
+          <View style={styles.episodeScrollSection}>
+            <FlatList
+              horizontal
+              data={episodes}
+              keyExtractor={(item) => item.id}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.episodeItem} onPress={handleEpisodePress}>
+                  <Image source={item.image} style={styles.episodeThumb} />
+                  <Text style={styles.episodeTitle}>{item.title}</Text>
+                  <Text style={styles.episodePodcast}>{item.podcast}</Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+
 
 
           {/* Categories Section */}
           <View style={styles.categories}>
-            {[{ icon: 'tv', text: 'Webcast' }, { icon: 'medkit', text: 'Meditation' }, { icon: 'video-camera', text: 'Wisdom' }, { icon: 'microphone', text: 'Talks' }, { icon: 'music', text: 'Music' }].map((item, index) => (
+            {[{ icon: 'podcast', text: 'Live Radio', color: '#007bff' },
+            { icon: 'newspaper-o', text: 'News', color: '#dc3545' },
+            { icon: 'rss', text: 'Podcast', color: '#28a745'}
+            ].map((item, index) => (
               <TouchableOpacity key={index} style={styles.categoryItem} onPress={() => console.log(`${item.text} Pressed`)}>
                 <FontAwesome name={item.icon} style={styles.categoryIcon} />
                 <Text style={styles.categoryText}>{item.text}</Text>
@@ -75,19 +142,13 @@ const Home = () => {
             ))}
           </View>
 
+
           {/* Banner Ad */}
           <TouchableOpacity onPress={handleBannerClick} style={styles.bannerAd}>
             <Image source={require('../assets/image/banner-ad.jpg')} style={styles.bannerAdImage} />
           </TouchableOpacity>
 
         </ScrollView>
-
-        {/* Footer Navigation */}
-        <View style={styles.footer}>
-          {['facebook', 'instagram', 'play-circle', 'youtube', 'twitter'].map((icon, index) => (
-            <FontAwesome key={index} name={icon} size={24} color={icon === 'play-circle' ? 'yellow' : 'white'} />
-          ))}
-        </View>
 
         {/* Search Modal */}
         <Modal animationType="slide" transparent={true} visible={isModalVisible} onRequestClose={handleCloseModal}>
@@ -135,6 +196,43 @@ const styles = StyleSheet.create({
   },
   joinButtonText: {
     fontWeight: 'bold',
+  },
+  sliderContainer: {
+    width: '100%',
+    height: height * 0.3,
+  },
+  bannerSlide: {
+    width: width,
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  dotsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: -20,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    margin: 5,
+  },
+  episodeScrollSection: {
+    backgroundColor: '#fff',
+    paddingVertical: 10,
+  },
+  episodeItem: {
+    width: width * 0.5,
+    marginHorizontal: 10,
+  },
+  episodeThumb: {
+    width: '100%',
+    height: height * 0.2,
+    borderRadius: 10,
+  },
+  episodePodcast: {
+    fontSize: 12,
+    color: 'gray',
   },
   categories: {
     flexDirection: 'row',
