@@ -38,9 +38,9 @@ const Home = () => {
   };
 
   const episodes = [
-    { id: '1', title: 'Motivational Talk', podcast: 'Red FM 93.5', image: require('../assets/image/podcast.jpg') },
-    { id: '2', title: 'Mindfulness Hour', podcast: 'Radio One', image: require('../assets/image/podcast.jpg') },
-    { id: '3', title: 'The Daily Wrap', podcast: 'FM Beats', image: require('../assets/image/podcast.jpg') },
+    { id: '1', title: 'Motivational Talk', podcast: 'Radio', image: require('../assets/image/podcast.jpg') },
+    { id: '2', title: 'Mindfulness Hour', podcast: 'Radio', image: require('../assets/image/podcast.jpg') },
+    { id: '3', title: 'The Daily Wrap', podcast: 'Radio', image: require('../assets/image/podcast.jpg') },
   ];
 
   return (
@@ -131,12 +131,20 @@ const Home = () => {
 
           {/* Categories Section */}
           <View style={styles.categories}>
-            {[{ icon: 'podcast', text: 'Live Radio', color: '#007bff' },
-            { icon: 'newspaper-o', text: 'News', color: '#dc3545' },
-            { icon: 'rss', text: 'Podcast', color: '#28a745' }
+            {[
+              { icon: 'podcast', text: 'Live Radio', bgColor: '#007bff' },
+              { icon: 'newspaper-o', text: 'News', bgColor: '#dc3545' },
+              { icon: 'rss', text: 'Podcast', bgColor: '#28a745' }
             ].map((item, index) => (
-              <TouchableOpacity key={index} style={styles.categoryItem} onPress={() => console.log(`${item.text} Pressed`)}>
-                <FontAwesome name={item.icon} style={styles.categoryIcon} />
+              <TouchableOpacity
+                key={index}
+                style={styles.categoryItem}
+                onPress={() => navigation.navigate('Episodes', { category: item.text })}
+              >
+                <FontAwesome
+                  name={item.icon}
+                  style={[styles.categoryIcon, { backgroundColor: item.bgColor }]}
+                />
                 <Text style={styles.categoryText}>{item.text}</Text>
               </TouchableOpacity>
             ))}
@@ -257,9 +265,9 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     fontSize: 58,
-    backgroundColor: '#9f2ce3',
+    lineHeight: 64,
     color: 'white',
-    padding: 18,
+    padding: 16,
     borderRadius: 50,
     textAlign: 'center',
   },

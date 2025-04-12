@@ -65,7 +65,21 @@ function EpisodesStack() {
 
 function GenericStack({ component, title }) {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator
+      screenOptions={({ navigation }) => ({
+        headerShown: true,
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
+            <Ionicons name="menu" size={28} color="#000" />
+          </TouchableOpacity>
+        ),
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.BackButton}>
+            <Ionicons name="arrow-back" size={28} color="#000" />
+          </TouchableOpacity>
+        ),
+      })}
+    >
       <Stack.Screen name={title} component={component} options={{ title }} />
     </Stack.Navigator>
   );
@@ -78,9 +92,7 @@ function DrawerNavigator() {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Episodes">
-        {() => <GenericStack component={EpisodesStack} title="Episodes" />}
-      </Drawer.Screen>
+      <Drawer.Screen name="Episodes" component={EpisodesStack} />
       <Drawer.Screen name="Settings">
         {() => <GenericStack component={Settings} title="Settings" />}
       </Drawer.Screen>
@@ -139,6 +151,12 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     alignSelf: 'flex-end',
+  },
+  menuButton: {
+    marginRight: 15,
+  },
+  BackButton: {
+    marginHorizontal: 15,
   },
   logo: {
     width: '100%',

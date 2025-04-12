@@ -23,53 +23,44 @@ const Episodes = () => {
 
   const episodeData = [...Array(6)].map((_, index) => ({
     id: index.toString(),
-    title: 'A Touch More with Sue Bird & Megan Rapinoe',
-    description: 'An insightful discussion about sports and culture.',
-    image: resolvedImage,
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    isVideo: index % 2 === 0, // Just to demonstrate: alternate between video/audio
+    episodeTitle: `Episode ${index + 1} - A Touch More`,
+    episodeDescription: 'An insightful discussion about sports and culture.',
+    episodeImage: resolvedImage,
+    episodeAudioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    youtubeId: index % 2 === 0 ? 'dQw4w9WgXcQ' : '',
   }));
 
   const renderEpisodeCard = ({ item }) => (
     <TouchableOpacity
       style={styles.episodeCard}
       onPress={() =>
-        navigation.navigate('Episodes', {
-          screen: 'EpisodeDetails',
-          params: {
-            episodeId: item.id,
-            episodeTitle: item.title,
-            episodeDescription: item.description,
-            episodeImage: item.image,
-            episodeAudioUrl: item.audioUrl,
-          },
+        navigation.navigate('EpisodeDetails', {
+          ...item,
+          allEpisodes: episodeData,
         })
       }
     >
       <View style={styles.imageContainer}>
-        <Image source={podcastImage} style={styles.episodeImage} />
+        <Image source={{ uri: item.episodeImage }} style={styles.episodeImage} />
 
-        {/* Center Play Icon */}
         <View style={styles.centerIcon}>
           <MaterialIcons name="play-arrow" size={28} color="#fff" />
         </View>
 
-        {/* Bottom Left: Video/Audio Icon */}
         <View style={styles.bottomLeftIcon}>
           <MaterialIcons
-            name={item.isVideo ? 'videocam' : 'headset'}
+            name={item.youtubeId ? 'videocam' : 'headset'}
             size={20}
             color="#000"
           />
         </View>
 
-        {/* Bottom Right: Share Icon */}
         <View style={styles.bottomRightIcon}>
           <Feather name="share-2" size={18} color="#000" />
         </View>
       </View>
 
-      <Text style={styles.episodeTitle}>{item.title}</Text>
+      <Text style={styles.episodeTitle}>{item.episodeTitle}</Text>
     </TouchableOpacity>
   );
 
