@@ -81,18 +81,18 @@ export default function Collebrations() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#3B006B',
+    backgroundColor: '#fff',
     padding: 20,
     flexGrow: 1,
   },
   header: {
-    color: '#fff',
+    color: '#40003d',
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
   },
   label: {
-    color: '#fff',
+    color: '#000',
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 6,
@@ -105,6 +105,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     fontSize: 14,
     color: '#000',
+    borderWidth: 1,
+    borderColor: '#A020F0',
   },
   messageInput: {
     textAlignVertical: 'top',

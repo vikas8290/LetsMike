@@ -68,7 +68,7 @@ export default function Programs() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3B006B',
+    backgroundColor: '#fff',
     paddingHorizontal: 8,
     paddingTop: 16,
   },
@@ -85,13 +85,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   title: {
-    color: '#fff',
+    color: '#9f2ce3',
     fontWeight: 'bold',
     marginTop: 6,
     fontSize: 16,
   },
   subtitle: {
-    color: '#aaa',
+    color: '#000',
     fontSize: 12,
   },
 });

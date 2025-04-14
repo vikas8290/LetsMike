@@ -26,7 +26,7 @@ function CustomDrawerContent({ navigation }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.closeDrawer()} style={styles.closeButton}>
-        <Ionicons name="close" size={30} color="#9f2ce3" />
+        <Ionicons name="close" size={30} color="#40003d" />
       </TouchableOpacity>
 
       <Image
@@ -49,16 +49,30 @@ function CustomDrawerContent({ navigation }) {
 
 const DrawerItem = ({ label, icon, onPress }) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
-    <Ionicons name={icon} size={22} color="#9f2ce3" />
+    <Ionicons name={icon} size={22} color="#40003d" />
     <Text style={styles.text}>{label}</Text>
   </TouchableOpacity>
 );
 
 function EpisodesStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator
+      screenOptions={({ navigation }) => ({
+        headerShown: true,
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
+            <Ionicons name="menu" size={28} color="#000" />
+          </TouchableOpacity>
+        ),
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.BackButton}>
+            <Ionicons name="arrow-back" size={28} color="#000" />
+          </TouchableOpacity>
+        ),
+      })}
+    >
       <Stack.Screen name="EpisodesList" component={Episodes} options={{ title: 'Episodes' }} />
-      <Stack.Screen name="EpisodeDetails" component={EpisodeDetails} />
+      <Stack.Screen name="EpisodeDetails" component={EpisodeDetails} options={{ title: 'Details' }} />
     </Stack.Navigator>
   );
 }
@@ -180,7 +194,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#3B006B',
+    backgroundColor: '#40003d',
     paddingVertical: 25,
   },
 });

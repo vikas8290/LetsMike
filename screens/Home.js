@@ -107,7 +107,7 @@ const Home = () => {
                   ]}
                 />
               ))}
-            </View>
+            </View> 
           </View>
 
 
@@ -163,7 +163,7 @@ const Home = () => {
           <View style={styles.modalBackground}>
             <View style={styles.modalContainer}>
               <TouchableOpacity onPress={handleCloseModal} style={styles.closeButton}>
-                <Ionicons name="close-circle-outline" size={30} color="#9f2ce3" />
+                <Ionicons name="close-circle-outline" size={30} color="#40003d" />
               </TouchableOpacity>
               <TextInput
                 style={styles.searchInput}
@@ -188,12 +188,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#9f2ce3',
-    padding: 10,
+    backgroundColor: '#40003d',
+    padding : 10,
   },
   logo: {
     width: width * 0.5,
-    height: 70,
+    height: 65,
     resizeMode: 'contain',
   },
   joinButton: {
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
   },
   viewAll: {
     fontSize: 14,
-    color: '#9f2ce3',
+    color: '#40003d',
     fontWeight: 'bold',
   },
   episodeHeader: {
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: 'white',
     borderWidth: 1,
-    borderColor: '#9f2ce3',
+    borderColor: '#40003d',
     borderRadius: 20,
     paddingHorizontal: 10,
     fontSize: 16,

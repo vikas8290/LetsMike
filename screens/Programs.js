@@ -64,12 +64,12 @@ export default function Programs() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#3B006B',
+    backgroundColor: '#FFF',
     flex: 1,
     padding: 16,
   },
   header: {
-    color: '#fff',
+    color: '#40003d',
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
@@ -85,13 +85,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
   },
   title: {
-    color: '#fff',
+    color: '#9f2ce3',
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 12,
   },
   subtitle: {
-    color: '#ccc',
+    color: '#000',
     fontSize: 14,
     marginTop: 4,
   },
