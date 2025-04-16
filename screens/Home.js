@@ -109,7 +109,7 @@ const Home = () => {
             {[
               { icon: require('../assets/image/radio.gif'), text: 'Live Radio', bgColor: '#007bff' },
               { icon: require('../assets/image/news.gif'), text: 'News', bgColor: '#dc3545' },
-              { icon: require('../assets/image/podcast.gif'), text: 'Podcast', bgColor: '#28a745' }
+              { icon: require('../assets/image/podcast-icon.gif'), text: 'Podcast', bgColor: '#28a745' }
             ].map((item, index) => (
               <TouchableOpacity
                 key={index}
