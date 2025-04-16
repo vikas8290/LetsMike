@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
-import { View, ActivityIndicator, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import Video from 'react-native-video';
+
+const { width, height } = Dimensions.get('window');
 
 const Preloader = ({ onFinish }) => {
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            onFinish();
-        }, 3000);
-        return () => clearTimeout(timer);
-    }, [onFinish]);
-
     return (
         <View style={styles.container}>
-            <Image source={require('../assets/image/logo.png')} style={styles.logo} />
-            <ActivityIndicator size="large" color="#FFFFFF" />
+            <Video
+                source={require('../assets/video/intro.mp4')}
+                style={styles.backgroundVideo}
+                resizeMode="cover"
+                onEnd={onFinish}
+                muted={false}
+                repeat={false}
+                controls={false}
+            />
         </View>
     );
 };
@@ -24,13 +27,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#410040',
+        backgroundColor: 'black',
     },
-    logo: {
-        width: 200,
-        height: 100,
-        resizeMode: 'contain',
-        marginBottom: 20,
+    backgroundVideo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width,
+        height,
     },
 });
 

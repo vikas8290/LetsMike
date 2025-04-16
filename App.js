@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, Image, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -18,6 +18,11 @@ import ContactUs from './screens/ContactUs';
 import Preloader from './components/Preloader';
 import { PlayerProvider } from './components/PlayerContext';
 import FooterPlayer from './components/FooterPlayer';
+
+// Get screen dimensions
+const { width, height } = Dimensions.get('window');
+const isLargeScreen = width > 768; // For tablet-sized devices
+const isSmallScreen = width <= 768; // For smaller devices like phones
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -36,8 +41,8 @@ function CustomDrawerContent({ navigation }) {
       />
 
       <DrawerItem label="Home" icon="home-outline" onPress={() => navigation.navigate('Home')} />
-      <DrawerItem label="Episodes" icon="play-circle-outline" onPress={() => navigation.navigate('Episodes')} />
-      <DrawerItem label="Settings" icon="settings-outline" onPress={() => navigation.navigate('Settings')} />
+      {/* <DrawerItem label="Episodes" icon="play-circle-outline" onPress={() => navigation.navigate('Episodes')} />
+      <DrawerItem label="Settings" icon="settings-outline" onPress={() => navigation.navigate('Settings')} /> */}
       <DrawerItem label="About Us" icon="information-circle-outline" onPress={() => navigation.navigate('About Us')} />
       <DrawerItem label="Programs" icon="musical-notes-outline" onPress={() => navigation.navigate('Programs')} />
       <DrawerItem label="News Bulletin" icon="newspaper-outline" onPress={() => navigation.navigate('News Bulletin')} />
@@ -59,14 +64,25 @@ function EpisodesStack() {
     <Stack.Navigator
       screenOptions={({ navigation }) => ({
         headerShown: true,
+        headerStyle: {
+          backgroundColor: '#40003d',
+        },
         headerRight: () => (
           <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
-            <Ionicons name="menu" size={28} color="#000" />
+            <Ionicons name="menu" size={28} color="#FFF" />
           </TouchableOpacity>
         ),
+        headerTitle: () => (
+          <Image
+            source={require('./assets/image/logo.png')}
+            style={{ height: 50, width: 140 }}
+            resizeMode="contain"
+          />
+        ),
+        headerTitleAlign: 'center',  
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.BackButton}>
-            <Ionicons name="arrow-back" size={28} color="#000" />
+            <Ionicons name="arrow-back" size={28} color="#FFF" />
           </TouchableOpacity>
         ),
       })}
@@ -82,14 +98,25 @@ function GenericStack({ component, title }) {
     <Stack.Navigator
       screenOptions={({ navigation }) => ({
         headerShown: true,
+        headerStyle: {
+          backgroundColor: '#40003d',
+        },
         headerRight: () => (
           <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
-            <Ionicons name="menu" size={28} color="#000" />
+            <Ionicons name="menu" size={28} color="#FFF" />
           </TouchableOpacity>
         ),
+        headerTitle: () => (
+          <Image
+            source={require('./assets/image/logo.png')}
+            style={{ height: 50, width: 140 }}
+            resizeMode="contain"
+          />
+        ),
+        headerTitleAlign: 'center',
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.BackButton}>
-            <Ionicons name="arrow-back" size={28} color="#000" />
+            <Ionicons name="arrow-back" size={28} color="#FFF" />
           </TouchableOpacity>
         ),
       })}
@@ -170,22 +197,22 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   BackButton: {
-    marginHorizontal: 15,
+    marginLeft: 15,
   },
   logo: {
     width: '100%',
-    height: 180,
+    height: isLargeScreen ? 250 : 180,
     marginVertical: 20,
   },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: isLargeScreen ? 16 : 12,
     borderBottomWidth: 0.5,
     borderColor: '#eee',
   },
   text: {
-    fontSize: 16,
+    fontSize: isLargeScreen ? 18 : 16,
     color: '#333',
     marginLeft: 15,
   },

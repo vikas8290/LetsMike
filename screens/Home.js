@@ -4,7 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import Video from 'react-native-video';
+import RadioHighlight from './RadioHighlight';
+import FastImage from 'react-native-fast-image';
 
 const { width, height } = Dimensions.get('window');
 
@@ -73,17 +74,6 @@ const Home = () => {
             </TouchableOpacity>
           </View>
 
-          {/* <View style={styles.videoContainer}>
-            <Video
-              source={require('../assets/image/video-2.mp4')}
-              style={styles.video}
-              resizeMode="cover"
-              paused={false}
-              repeat
-              controls={false}
-            />
-          </View> */}
-
           <View style={styles.sliderContainer}>
             <ScrollView
               horizontal
@@ -107,49 +97,34 @@ const Home = () => {
                   ]}
                 />
               ))}
-            </View> 
+            </View>
           </View>
 
+          {/* Radio Highlight Section */}
+          <RadioHighlight />
 
-          <View style={styles.episodeScrollSection}>
-            <FlatList
-              horizontal
-              data={episodes}
-              keyExtractor={(item) => item.id}
-              showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <TouchableOpacity style={styles.episodeItem} onPress={handleEpisodePress}>
-                  <Image source={item.image} style={styles.episodeThumb} />
-                  <View>
-                    <Text style={styles.episodeTitle}>{item.title}</Text>
-                    <Text style={styles.episodePodcast}>{item.podcast}</Text>
-                  </View>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
 
           {/* Categories Section */}
           <View style={styles.categories}>
             {[
-              { icon: 'podcast', text: 'Live Radio', bgColor: '#007bff' },
-              { icon: 'newspaper-o', text: 'News', bgColor: '#dc3545' },
-              { icon: 'rss', text: 'Podcast', bgColor: '#28a745' }
+              { icon: require('../assets/image/radio.gif'), text: 'Live Radio', bgColor: '#007bff' },
+              { icon: require('../assets/image/news.gif'), text: 'News', bgColor: '#dc3545' },
+              { icon: require('../assets/image/podcast.gif'), text: 'Podcast', bgColor: '#28a745' }
             ].map((item, index) => (
               <TouchableOpacity
                 key={index}
                 style={styles.categoryItem}
                 onPress={() => navigation.navigate('Episodes', { category: item.text })}
               >
-                <FontAwesome
-                  name={item.icon}
+                <FastImage
+                  source={item.icon}
                   style={[styles.categoryIcon, { backgroundColor: item.bgColor }]}
+                  resizeMode={FastImage.resizeMode.contain}
                 />
                 <Text style={styles.categoryText}>{item.text}</Text>
               </TouchableOpacity>
             ))}
           </View>
-
 
           {/* Banner Ad */}
           <TouchableOpacity onPress={handleBannerClick} style={styles.bannerAd}>
@@ -189,21 +164,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#40003d',
-    padding : 10,
+    padding: 10,
   },
   logo: {
     width: width * 0.5,
     height: 65,
     resizeMode: 'contain',
-  },
-  joinButton: {
-    backgroundColor: '#FFD700',
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-  },
-  joinButtonText: {
-    fontWeight: 'bold',
   },
   sliderContainer: {
     width: '100%',
@@ -225,29 +191,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 5,
   },
-  episodeScrollSection: {
-    backgroundColor: '#fff',
-    paddingVertical: 15,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-  },
-  episodeItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: width * 0.48,
-  },
-  episodeThumb: {
-    width: width * 0.14,
-    height: height * 0.06,
-    borderRadius: 10,
-    marginRight: 10,
-  },
-  episodePodcast: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#3B006B',
-  },
   categories: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -262,14 +205,10 @@ const styles = StyleSheet.create({
     width: width / 4,
   },
   categoryIcon: {
-    height: 100,
-    width: 100,
-    fontSize: 58,
-    lineHeight: 64,
-    color: 'white',
-    padding: 16,
-    borderRadius: 50,
-    textAlign: 'center',
+    height: 80,
+    width: 80,
+    borderRadius: 40,
+    backgroundColor: '#fff',
   },
   categoryText: {
     color: '#3B006B',
@@ -286,51 +225,15 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#3B006B',
-  },
-  viewAll: {
-    fontSize: 14,
-    color: '#40003d',
-    fontWeight: 'bold',
-  },
-  episodeHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    backgroundColor: '#fff',
-  },
-  episodes: {
+  searchInput: {
+    width: '100%',
+    height: 40,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#40003d',
+    borderRadius: 20,
     paddingHorizontal: 10,
-    backgroundColor: '#fff',
-  },
-  episodeCard: {
-    width: width * 0.4,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    margin: 5,
-    padding: 10,
-  },
-  episodeImage: {
-    width: '100%',
-    height: height * 0.3,
-    borderRadius: 10,
-  },
-  episodeTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
-  footer: {
-    position: 'relative',
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#3B006B',
-    paddingVertical: 20,
+    fontSize: 16,
   },
   modalBackground: {
     flex: 1,
@@ -344,29 +247,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
-  searchInput: {
-    width: '100%',
-    height: 40,
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: '#40003d',
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    fontSize: 16,
-  },
   closeButton: {
     borderRadius: 50,
     marginBottom: 20,
     backgroundColor: 'white',
-  },
-  videoContainer: {
-    width: '100%',
-    height: height * 0.50,
-    backgroundColor: '#000',
-  },
-  video: {
-    width: '100%',
-    height: '100%',
   },
 });
 
